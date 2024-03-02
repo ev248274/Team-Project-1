@@ -32,7 +32,7 @@ private:
 	};
 
 	/* The list of Terms that make up the polynomial. */
-	list<int> term_list;
+	list<Term> term_list;
 
 };
 
