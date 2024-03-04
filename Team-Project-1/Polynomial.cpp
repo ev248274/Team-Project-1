@@ -34,3 +34,12 @@ Sets the exponent to the given value
 @param value: the value to change the exponent to
 */
 void Polynomial::Term::set_exponent(const int value) { exponent = value; }
+
+/*
+Overloads the == operator for the Term class : Tests whether two Terms have equal exponents
+@param other: the other Term
+@return: true if both Term's exponents are equal, otherwise return false
+*/
+bool Polynomial::Term::operator == (const Term& other) const {
+	return exponent == other.exponent ? true : false;
+}

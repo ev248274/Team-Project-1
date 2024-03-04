@@ -26,6 +26,9 @@ private:
 		void set_coefficent(const int);
 		void set_exponent(const int);
 
+		// Overloaded operators
+		bool operator == (const Term&) const; // Tests whether two Terms have equal exponents
+
 	private:
 		// Data Fields
 		int coefficent, exponent;
