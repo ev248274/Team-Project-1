@@ -13,13 +13,17 @@ Initializes term_list, given a string in polynomial format.
 term_list isn't sorted.
 @return: N/A
 */
-void Polynomial::set_polynomial(std::string poly) {
+void Polynomial::set_polynomials() { 
 	list<std::string> poly_sep;
+	std::string poly;
 	std::string sep;
 	std::string c;
 	std::string e;
-	bool passed_x = false;
+	bool passed_x = false; // distinguishes between initializing c values (when false) and e values (when true)
 	Term term;
+
+	std::cout << "Enter polynomials:" << std::endl;
+	std::cin >> poly;
 
 	poly.insert(0, 1, 'F'); // 'F' is the out of bounds test case for the front
 	poly.push_back('B'); // 'B' is the out of bounds test case for the back
@@ -33,7 +37,7 @@ void Polynomial::set_polynomial(std::string poly) {
 			else { poly_sep.push_back(sep); sep = "-"; }
 		}
 	}
-	for (auto it = poly_sep.begin(); it != poly_sep.end(); ++it) { //
+	for (auto it = poly_sep.begin(); it != poly_sep.end(); ++it) { // finds coefficients and exponents from poly_sep and stores them inside of term_list
 		c = "";
 		e = "";
 		passed_x = false;
@@ -60,15 +64,32 @@ void Polynomial::set_polynomial(std::string poly) {
 			else if (*it2 == 'B') { break; }
 			if (*(it2 + 1) == 'B' && !passed_x) { e = "0"; } // tests for coefficients with exponent of 0
 		}
-		if (c == "0") { continue; }
-		else if (c == "" && e == "") { continue; }
+		if (c == "0" || c == "-0") { continue; } // tests for "0x" and "-0x"
+		else if (c == "" && e == "") { continue; } // tests for empty spaced terms
 		else {
 			term.set_coefficent(std::stoi(c));
 			term.set_exponent(std::stoi(e));
-			term_list.push_back(term);
+			term_list.push_back(term); // pushes term onto term_list
 		}
 	}
-	sort(); // Should sort term_list into decreasing order
+	combine();
+	sort();
+}
+
+/*
+Combines all coefficients of alike exponents inside of term_list
+@return: N/A
+*/
+void Polynomial::combine() {
+	// ***FIXME***
+}
+
+/*
+Sorts term_list in decreasing order
+@return: N/A
+*/
+void Polynomial::sort() {
+	// ***FIXME***
 }
 
 /*
@@ -86,12 +107,21 @@ void Polynomial::output_term_list() {
 }
 
 /*
-Sorts term_list in decreasing order
-@return: N/A
+Overloads the + operator for the Polynomial class : Adds two Polynomials together
+@param other: other Polynomials' address
+@return: a sorted, combined list<Term> 
 */
-void Polynomial::sort() {
-	// FIXME
+list<Polynomial::Term> Polynomial::operator + (const Polynomial& other) const { 
+	list<Term> result;
+	Term term;
+
+	// ***FIXME***
+
+	return result;
 }
+
+
+
 // Getters
 
 /*
