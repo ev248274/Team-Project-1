@@ -2,6 +2,7 @@
 #define POLYNOMIAL_H
 
 #include <list>
+#include <string>
 
 using std::list;
 
@@ -11,6 +12,9 @@ public:
 	Polynomial();
 
 	// Class-member functions.
+	void set_polynomial(std::string s); // Initializes term_list
+	void output_term_list(); // Shows each Term inside term_list
+	void sort(); // Sorts term_list in decreasing order
 
 private:
 	/* A term in the polynomal. */
