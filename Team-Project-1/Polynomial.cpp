@@ -16,10 +16,40 @@ void Polynomial::combine() {
 }
 
 /*
-Sorts term_list in decreasing order
+Swaps two adjacent Terms in the polynomial
+@param first: The iterator that is sitting on the first Term
+@param second: the iterator that is sitting on the Term directly after the first Term
+*/
+void Polynomial::swap(std::list<Term>::iterator first, std::list<Term>::iterator second) {
+	Term& temp = *first;
+	*first = *second;
+	*second = temp;
+}
+
+
+/*
+Sorts the Polynomial in descending exponent order (using a Bubble Sort implementation)
 */
 void Polynomial::sort() {
-	// ***FIXME***
+	std::list<Term>::iterator current = term_list.begin();
+	std::list<Term>::iterator next;
+
+	bool unsorted = true;
+	while (unsorted) {
+		unsorted = false;
+		current = term_list.begin();
+
+		while (current != --term_list.end()) {
+			next = ++current; // Set next to the value after current
+			--current;        // Reset current for comparison
+			if (*next < *current) {
+				swap(current, next);
+				unsorted = true;
+			}
+
+			++current;
+		}
+	}
 }
 
 /*
@@ -81,7 +111,7 @@ void Polynomial::set_polynomial_list(list<Term> lst) {
 Initializes term_list
 @param poly: string poly in polynomial format
 */
-void Polynomial::set_polynomial_string(std::string poly) {
+void Polynomial::set_polynomial_from_string(std::string poly) {
 	list<std::string> poly_sep;
 	std::string sep;
 	std::string c;
