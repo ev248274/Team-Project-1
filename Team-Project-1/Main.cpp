@@ -7,14 +7,20 @@ using namespace std;
 int main() {
 	Polynomial first;
 	Polynomial second;
+	Polynomial third;
 
-	first.set_polynomials();  // Enter into console: −x+5+x^2−10 
-	second.set_polynomials(); // Enter into console: 5x−5x^−2+10−5x+x^2-0x
+	string first_p = "-x+5+x^2-10";
+	string second_p = "5x-5x^-2+10-5x+x^2-0x";
+
+	first.set_polynomial_string(first_p);  
+	second.set_polynomial_string(second_p);
 	
 	first.output_term_list();
 	second.output_term_list();
+
+	third = first + second; 
 	
 
 	system("pause");
-	return 1;
+	return 0;
 }
