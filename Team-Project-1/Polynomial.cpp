@@ -1,9 +1,16 @@
 #include "Polynomial.h"
 
+#include <exception>
 
 // Constructors
 
-// Default Constructor
+// Default Constructor (Term)
+Polynomial::Term::Term() : coefficent(0), exponent(0) {}
+
+// Creates a Term with given coefficent and exponent
+Polynomial::Term::Term(int coefficent, int exponent) : coefficent(coefficent), exponent(exponent) {}
+
+// Default Constructor (Polynomial)
 Polynomial::Polynomial() : term_list(NULL) {}
 
 // Class-member functions
@@ -172,6 +179,15 @@ bool Polynomial::Term::operator == (const Term& other) const {
 }
 
 /*
+Tests whether two Terms do not have equal exponents
+@param other: the other Term
+@return: true if both Term's exponents are NOT equal, otherwise return false
+*/
+bool Polynomial::Term::operator != (const Term& other) const {
+	return !(*this == other);
+}
+
+/*
 Overloaded the > operator for the Term class :
 @param other: the other Term
 @return: true if the this Term is greater than the other Term
@@ -189,6 +205,19 @@ bool Polynomial::Term::operator < (const Term& other) const {
 	return exponent < other.exponent ? true : false;
 
 }
+/*
+Adds two Terms with equal exponents
+@param other: the other Term
+@return: a sum of *this Term and the other Term
+*/
+Polynomial::Term Polynomial::Term::operator + (const Term& other) const {
+	if (*this != other) { throw std::exception("Attempting to add Terms with unequal exponents"); }
+
+	Term result(coefficent + other.coefficent, exponent);
+
+	return result;
+}
+
 
 /*
 Overloads the + operator for the Polynomial class : Adds two Polynomials together

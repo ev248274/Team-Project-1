@@ -14,6 +14,10 @@ private:
 	/* A term in the polynomal. */
 	class Term {
 	public:
+		// Constructors
+		Term();         // Default constrctor
+		Term(int, int); // Creates a Term with given coefficent and exponent
+
 		// Class-member functions.
 
 		// Getters
@@ -26,8 +30,10 @@ private:
 
 		// Overloaded operators
 		bool operator == (const Term&) const; // Tests whether two Terms have equal exponents
-		bool operator > (const Term&) const; // Tests whether one Term is greater than the other
-		bool operator < (const Term&) const; // Tests whether one Term is less than the other
+		bool operator != (const Term&) const; // Tests whether two Terms do not have equal exponents
+		bool operator > (const Term&) const;  // Tests whether one Term is greater than the other
+		bool operator < (const Term&) const;  // Tests whether one Term is less than the other
+		Term operator + (const Term&) const;  // Adds two Terms with equal exponents
 
 	private:
 		// Data Fields
