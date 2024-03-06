@@ -1,6 +1,4 @@
 #include "Polynomial.h"
-#include <string>
-#include <iostream>
 
 
 // Constructors
@@ -149,6 +147,25 @@ Overloads the == operator for the Term class : Tests whether two Terms have equa
 */
 bool Polynomial::Term::operator == (const Term& other) const {
 	return exponent == other.exponent ? true : false;
+}
+
+/*
+Overloaded the > operator for the Term class :
+@param other: the other Term
+@return: true if the this Term is greater than the other Term
+*/
+bool Polynomial::Term::operator > (const Term& other) const {
+	return exponent > other.exponent ? true : false;
+}
+
+/*
+Overloaded the < operator for the Term class :
+@param other: the other Term
+@return: true if the this Term is less than the other Term
+*/
+bool Polynomial::Term::operator < (const Term& other) const {
+	return exponent < other.exponent ? true : false;
+
 }
 
 /*

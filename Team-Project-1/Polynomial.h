@@ -3,6 +3,8 @@
 
 #include <list>
 #include <string>
+#include <iostream>
+
 
 using std::list;
 
@@ -24,6 +26,8 @@ private:
 
 		// Overloaded operators
 		bool operator == (const Term&) const; // Tests whether two Terms have equal exponents
+		bool operator > (const Term&) const; // Tests whether one Term is greater than the other
+		bool operator < (const Term&) const; // Tests whether one Term is less than the other
 
 	private:
 		// Data Fields
