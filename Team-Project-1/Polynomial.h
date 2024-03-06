@@ -41,8 +41,7 @@ public:
 	Polynomial();
 
 	// Class-member functions.
-	void set_polynomial_string(std::string poly); // Initializes term_list with a string in polynomial format (completed)
-	void set_polynomial_list(list<Term> lst); // Initializes term_list with another list<Term> variable (incomplete)
+	void set_polynomial(std::string poly); // Initializes term_list with a string in polynomial format (completed)
 	list<Term> get_polynomial(); // Returns term_list (completed)
 	void output_term_list(); // Shows each Term inside term_list (completed)
 	void sort(); // Sorts term_list in decreasing order (incomplete)
@@ -50,7 +49,7 @@ public:
 
 
 	// Overloaded operators
-	Polynomial operator + (const Polynomial&) const; // Adds two Polynomials together (incomplete)
+	Polynomial operator + (const Polynomial&) const; // Adds two Polynomials together (completed)
 }; 
 
 

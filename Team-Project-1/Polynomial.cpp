@@ -28,7 +28,7 @@ Outputs each term into console
 void Polynomial::output_term_list() {
 	int count = 1;
 	for (auto it = term_list.begin(); it != term_list.end(); ++it) {
-		std::cout << "\nterm " << count << ": " << std::endl;
+		std::cout << "term " << count << ": " << std::endl;
 		std::cout << "Value of coefficient: " << (*it).get_coefficent() << std::endl;
 		std::cout << "Value of exponent: " << (*it).get_exponent() << "\n" << std::endl;
 		count += 1;
@@ -71,17 +71,9 @@ void Polynomial::Term::set_exponent(const int value) { exponent = value; }
 
 /*
 Initializes term_list
-@param lst: set term_list equal to list<Term> lst
-*/
-void Polynomial::set_polynomial_list(list<Term> lst) {
-	// ***FIXME***
-}
-
-/*
-Initializes term_list
 @param poly: string poly in polynomial format
 */
-void Polynomial::set_polynomial_string(std::string poly) {
+void Polynomial::set_polynomial(std::string poly) {
 	list<std::string> poly_sep;
 	std::string sep;
 	std::string c;
@@ -175,10 +167,16 @@ Overloads the + operator for the Polynomial class : Adds two Polynomials togethe
 */
 Polynomial Polynomial::operator + (const Polynomial& other) const {
 	Polynomial result;
-	list<Term> r;
-	Term t;
 
-	// ***FIXME***
+	for (auto it = term_list.begin(); it != term_list.end(); ++it) { result.term_list.push_back(*it); }
+
+	for (auto it = other.term_list.begin(); it != other.term_list.end(); ++it) { result.term_list.push_back(*it); }
+
+	result.sort();
+	result.combine();
+
+	std::cout << "Added two polynomials!\nResult is: " << std::endl;
+	result.output_term_list();
 
 	return result;
 }
