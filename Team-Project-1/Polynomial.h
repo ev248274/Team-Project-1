@@ -52,7 +52,7 @@ public:
 
 
 	// Overloaded operators
-	Polynomial operator + (const Polynomial&) const; // Adds two Polynomials together (incomplete)
+	Polynomial operator + (const Polynomial&) const; // Adds two Polynomials together (completed)
 }; 
 
 

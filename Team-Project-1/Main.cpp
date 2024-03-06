@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include "Polynomial.h"
 #include <string>
 
@@ -22,7 +22,6 @@ int main() {
 
 	first.sort();
 	
-
 	system("pause");
 	return 0;
 }
