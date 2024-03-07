@@ -40,25 +40,10 @@ void Polynomial::swap(std::list<Term>::iterator first, std::list<Term>::iterator
 Sorts the Polynomial in descending exponent order (using a Bubble Sort implementation)
 */
 void Polynomial::sort() {
-	std::list<Term>::iterator current = term_list.begin();
-	std::list<Term>::iterator next;
-
-	bool unsorted = true;
-	while (unsorted) {
-		unsorted = false;
-		current = term_list.begin();
-
-		while (current != --term_list.end()) {
-			next = ++current; // Set next to the value after current
-			--current;        // Reset current for comparison
-			if (*next < *current) {
-				swap(current, next);
-				unsorted = true;
-			}
-
-			++current;
-		}
-	}
+	// .sort() wants to go from least to greatest, when we want to go from greatest to least
+	// That's why we need to .reverse() it.
+	term_list.sort();
+	term_list.reverse();
 }
 
 /*
