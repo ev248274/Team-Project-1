@@ -1,6 +1,8 @@
 #include "Polynomial.h"
 
 #include <exception>
+#include <iostream>
+#include <sstream>
 
 // Constructors
 
@@ -111,62 +113,172 @@ Initializes term_list
 @param poly: string poly in polynomial format
 */
 void Polynomial::set_polynomial_from_string(std::string poly) {
-	list<std::string> poly_sep;
-	std::string sep;
-	std::string c;
-	std::string e;
-	bool passed_x = false; // distinguishes between initializing c values (when false) and e values (when true)
-	Term term;
+	bool next_num_is_negative   = false; // The next number should be negative
+	bool make_this_num_negative = false;
+	bool write_to_exponent      = false; // Should the characters go into the exponent part of our Term?
+	bool end_of_current_num     = false;
+	bool move_to_next_term      = false;
+	bool prev_char_was_x        = false;
+	bool prev_char_was_carrot   = false;
+	std::string current_num_str = "";
+	int current_num_int;
+	char current_char;
+	Term current_term;
+	std::stringstream converter;
 
-	poly.insert(0, 1, 'F'); // 'F' is the out of bounds test case for the front
-	poly.push_back('B'); // 'B' is the out of bounds test case for the back
-	for (std::string::iterator it = poly.begin(); it != poly.end(); ++it) { // separates each term as a string and stores into poly_sep
-		if (*it == 'F') { continue; }
-		else if (*(it + 1) == 'B') { sep += *it; poly_sep.push_back(sep); break; }
-		if ((*it != '+') && (*it != '-')) { sep += *it; }
-		else if (*it == '+') { poly_sep.push_back(sep); sep = ""; }
-		if (*it == '-') {
-			if (*(it - 1) == '^') { sep += *it; }
-			else { poly_sep.push_back(sep); sep = "-"; }
+
+	for (std::string::iterator it = poly.begin(); it != poly.end(); ++it) {
+		current_char = *it;
+
+		// If next_num_is_negative is already true -> then this num is the one that needs to be negative!
+		if (next_num_is_negative) {
+			make_this_num_negative = true;
+			next_num_is_negative   = false;
 		}
-	}
-	for (auto it = poly_sep.begin(); it != poly_sep.end(); ++it) { // finds coefficients and exponents from poly_sep and stores them inside of term_list
-		c = "";
-		e = "";
-		passed_x = false;
-		if (term.get_coefficent() != 0) { term.set_coefficent(0); }
-		if (term.get_exponent() != 0) { term.set_exponent(0); }
-		(*it).insert(0, 1, 'F');
-		(*it).push_back('B');
-		for (auto it2 = (*it).begin(); it2 != (*it).end(); ++it2) {
-			if (*it2 == 'F') { continue; }
-			if (!passed_x) {
-				if (*it2 == 'B') { break; }
-				else if (*it2 != 'x') {
-					c.push_back(*it2);
-				}
-				else {
-					if (*(it2 + 1) == 'B') { e = "1"; }
-					if (*(it2 - 1) == 'F') { c = "1"; }
-					if (*(it2 - 1) == '-') { c = "-1"; }
-					passed_x = true;
-				}
+
+		// Addition
+		if (current_char == '+') {
+			end_of_current_num   = true;
+			move_to_next_term    = true; // The Term is finished if we reach a '+' symbol
+
+			if (prev_char_was_x) { 
+				// Then this is an exponent
+				write_to_exponent = true;
+				// If 'x' just happened, the coefficent was just flushed, so we know we have an empty string -> just put one (1) inside it
+				current_num_str.push_back('1');
 			}
-			else if (*it2 == '^') { continue; }
-			else if (*it2 != 'B') { e.push_back(*it2); }
-			else if (*it2 == 'B') { break; }
-			if (*(it2 + 1) == 'B' && !passed_x) { e = "0"; } // tests for coefficients with exponent of 0
+			// The previous character is no longer 'x'
+			prev_char_was_x = false;
+
 		}
-		if (c == "0" || c == "-0") { continue; } // tests for "0x" and "-0x"
-		else if (c == "" && e == "") { continue; } // tests for empty spaced terms
+		// Subtraction
+		else if (current_char == '-') {
+			end_of_current_num   = true;
+			next_num_is_negative = true;
+
+			if (prev_char_was_x) {
+				// Then we know that we need a one (1) in the exponent for 'x'
+				write_to_exponent = true;
+				current_num_str.push_back('1');
+				prev_char_was_x = false;
+			}
+
+			// The only possible thing the previous character could be then, is just a number
+			if (!(prev_char_was_x || prev_char_was_carrot)) {
+				move_to_next_term = true; // The previous Term was a constant, place it in the Polynomial
+			}
+
+		}
+		// Variable ('x')
+		else if (current_char == 'x') {
+			end_of_current_num = true;
+			prev_char_was_x    = true;
+
+			// If we hit an 'x' with no numbers before it, we assume the coefficent to be one (1)
+			if (current_num_str.empty()) { current_num_str.push_back('1'); }
+		}
+		// Exponent ('^')
+		else if (current_char == '^') {
+			write_to_exponent    = true;
+			prev_char_was_x      = false;
+			prev_char_was_carrot = true;
+		}
+		// The character is a number
 		else {
-			term.set_coefficent(std::stoi(c));
-			term.set_exponent(std::stoi(e));
-			term_list.push_back(term); // pushes term onto term_list
+			current_num_str.push_back(current_char);
+
+			// The new previous is now the number that was push_back() onto the string
+			prev_char_was_x      = false;
+			prev_char_was_carrot = false;
+		}
+
+		// This number is finished AND it exists
+		if (end_of_current_num && (!current_num_str.empty())) {
+			// For some reason, std::stoi(current_num_str) is not working
+			// So I used a stringstream instead to convert the string into an int
+			converter << current_num_str;
+			converter >> current_num_int;
+			converter.clear();
+
+			current_num_str = ""; // Reset for next number
+
+			// Check if we need to switch the sign
+			if (make_this_num_negative) {
+				current_num_int = -current_num_int;
+				make_this_num_negative = false; // Reset for next number
+			}
+
+			// Exponent
+			if (write_to_exponent) {
+				current_term.set_exponent(current_num_int);
+				write_to_exponent = false; // Reset for next number
+
+				end_of_current_num = false;
+				move_to_next_term  = true;  // The exponent will always come last. After it, move on
+			}
+			// Coefficent
+			else {
+				current_term.set_coefficent(current_num_int);
+				current_term.set_exponent(0); // Reset exponent
+
+				end_of_current_num = false;
+
+			}
+
+			// This Term is finished
+			if (move_to_next_term) {
+				term_list.push_back(current_term);
+
+				move_to_next_term = false;
+			}
+		}
+		// It would have been the end of the number/Term, but there is no number
+		else { 
+			end_of_current_num = false;
+			move_to_next_term  = false;
 		}
 	}
-	sort();
-	combine();
+
+	// Last character was 'x'
+	if (prev_char_was_x) {
+		// We need to add the exponent to the Term (which is 1) then push it into the list
+		current_num_str = "";
+		current_num_str.push_back('1');
+		converter << current_num_str;
+		converter >> current_num_int;
+		converter.clear();
+
+		current_term.set_exponent(current_num_int);
+
+		term_list.push_back(current_term);
+
+		prev_char_was_x = false; // Avoid false-positive in following if-statements
+		current_num_str = "";    // Avoid false-positive in following if-statements
+
+	}
+
+	// If the string still has a number in it
+	if (!current_num_str.empty()) {
+		converter << current_num_str;
+		converter >> current_num_int;
+
+		//current_num_int = std::stoi(current_num_str); // Convert string to an integer
+
+		if (write_to_exponent) {
+			current_term.set_exponent(current_num_int);
+		}
+		else if (prev_char_was_x){
+			current_term.set_coefficent(current_num_int);
+			current_term.set_exponent(1); // There is no more numbers, so the exponent must be one (1)
+		}
+		// Constant value at the end
+		else {
+			current_term.set_coefficent(current_num_int);
+			current_term.set_exponent(0);
+
+		}
+		term_list.push_back(current_term);
+	}
 }
 
 /*
