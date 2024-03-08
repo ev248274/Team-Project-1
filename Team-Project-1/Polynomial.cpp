@@ -28,13 +28,31 @@ Polynomial::Term::Term(int coefficent, int exponent) : coefficent(coefficent), e
 // Default Constructor (Polynomial)
 Polynomial::Polynomial() : term_list(NULL) {}
 
+// Copy Constructor
+Polynomial::Polynomial(const Polynomial& other) {
+	clear();
+
+	*this = other;
+}
+
 // Constructor with given Polynomial (Polynomial)
 Polynomial::Polynomial(std::string poly) : term_list(gen_polynomial_as_list_from_string(poly)) {
 	combine();
 	sort();
 }
 
+
+// Destructor
+Polynomial::~Polynomial() { clear(); }
+
 // Class-member functions
+
+/*
+Empties the Polynomial by deleting its Term list
+*/
+void Polynomial::clear() {
+	while (!term_list.empty()) { term_list.pop_front(); }
+}
 
 /*
 Combines all coefficients of like exponents inside of term_list
@@ -335,6 +353,7 @@ const Polynomial::Term& Polynomial::Term::operator = (const Term& rhs) {
 		// No dynamic data to copy
 	}
 
+	// return
 	return *this;
 }
 
@@ -349,6 +368,23 @@ Polynomial::Term Polynomial::Term::operator + (const Term& other) const {
 	Term result(coefficent + other.coefficent, exponent);
 
 	return result;
+}
+
+/*
+Deep-copy assignment operator (Polynomial)
+*/
+const Polynomial& Polynomial::operator = (const Polynomial& rhs) {
+	// Avoid self assignment
+	if (this != &rhs) {
+		// Delete dynamic data
+		clear();
+		// No static data to copy
+		// Copy dynamic data
+		for (auto it = rhs.term_list.begin(); it != rhs.term_list.end(); ++it) { term_list.push_back(*it); }
+	}
+
+	// return
+	return *this;
 }
 
 /*

@@ -47,7 +47,12 @@ private:
 public:
 	// Constructors
 	Polynomial();
+	// Copy Constructor
+	Polynomial(const Polynomial&); // Copy constructor
 	Polynomial(std::string); // Constructs a Polynomial with a given string
+
+	// Destructor
+	~Polynomial();
 
 	// Class-member functions.
 	void set_polynomial_from_string(std::string poly); // Initializes term_list with a string in polynomial format
@@ -56,9 +61,11 @@ public:
 	void output_term_list(); // Shows each Term inside term_list
 	void swap(std::list<Term>::iterator, std::list<Term>::iterator); // Swaps two adjacent Terms in the Polynomial
 	void sort(); // Sorts the Polynomial in decending exponent order
+	void clear(); // Empties the Polynomial
 	void combine(); // Adds coefficients with the same exponent (incomplete)
 
 	// Overloaded operators
+	const Polynomial& operator = (const Polynomial&);
 	Polynomial operator + (const Polynomial&) const; // Adds two Polynomials together
 
 	// Helper functions
