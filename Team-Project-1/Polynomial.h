@@ -46,6 +46,7 @@ private:
 public:
 	// Constructors
 	Polynomial();
+	Polynomial(std::string); // Constructs a Polynomial with a given string
 
 	// Class-member functions.
 	void set_polynomial_from_string(std::string poly); // Initializes term_list with a string in polynomial format
@@ -56,9 +57,11 @@ public:
 	void sort(); // Sorts the Polynomial in decending exponent order
 	void combine(); // Adds coefficients with the same exponent (incomplete)
 
-
 	// Overloaded operators
 	Polynomial operator + (const Polynomial&) const; // Adds two Polynomials together
+
+	// Helper functions
+	friend list<Term> gen_polynomial_as_list_from_string(std::string);
 }; 
 
 

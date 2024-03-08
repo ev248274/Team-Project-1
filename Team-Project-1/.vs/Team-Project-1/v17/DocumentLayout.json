@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "D:\\1_GitHub_Projects\\School\\Team-Project-1\\Team-Project-1\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{F2F34E22-6B5D-4BF6-B93F-F6CA1B4E0235}|Team-Project-1.vcxproj|D:\\1_GitHub_Projects\\School\\Team-Project-1\\Team-Project-1\\Polynomial.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F2F34E22-6B5D-4BF6-B93F-F6CA1B4E0235}|Team-Project-1.vcxproj|solutionrelative:Polynomial.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F2F34E22-6B5D-4BF6-B93F-F6CA1B4E0235}|Team-Project-1.vcxproj|D:\\1_GitHub_Projects\\School\\Team-Project-1\\Team-Project-1\\Polynomial.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{F2F34E22-6B5D-4BF6-B93F-F6CA1B4E0235}|Team-Project-1.vcxproj|solutionrelative:Polynomial.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F2F34E22-6B5D-4BF6-B93F-F6CA1B4E0235}|Team-Project-1.vcxproj|D:\\1_GitHub_Projects\\School\\Team-Project-1\\Team-Project-1\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{F2F34E22-6B5D-4BF6-B93F-F6CA1B4E0235}|Team-Project-1.vcxproj|solutionrelative:Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F2F34E22-6B5D-4BF6-B93F-F6CA1B4E0235}|Team-Project-1.vcxproj|D:\\1_GitHub_Projects\\School\\Team-Project-1\\Team-Project-1\\Polynomial.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{F2F34E22-6B5D-4BF6-B93F-F6CA1B4E0235}|Team-Project-1.vcxproj|solutionrelative:Polynomial.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,11 +22,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Main.cpp",
               "DocumentMoniker": "D:\\1_GitHub_Projects\\School\\Team-Project-1\\Team-Project-1\\Main.cpp",
               "RelativeDocumentMoniker": "Main.cpp",
@@ -39,28 +39,29 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Polynomial.cpp",
               "DocumentMoniker": "D:\\1_GitHub_Projects\\School\\Team-Project-1\\Team-Project-1\\Polynomial.cpp",
               "RelativeDocumentMoniker": "Polynomial.cpp",
               "ToolTip": "D:\\1_GitHub_Projects\\School\\Team-Project-1\\Team-Project-1\\Polynomial.cpp",
               "RelativeToolTip": "Polynomial.cpp",
-              "ViewState": "AQIAABsAAAAAAAAAAAAAACsAAAAoAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAFQBAAATAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-03-02T20:41:54.591Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "Polynomial.h",
               "DocumentMoniker": "D:\\1_GitHub_Projects\\School\\Team-Project-1\\Team-Project-1\\Polynomial.h",
               "RelativeDocumentMoniker": "Polynomial.h",
               "ToolTip": "D:\\1_GitHub_Projects\\School\\Team-Project-1\\Team-Project-1\\Polynomial.h",
               "RelativeToolTip": "Polynomial.h",
-              "ViewState": "AQIAACEAAAAAAAAAAAAAADIAAABvAAAA",
+              "ViewState": "AQIAACEAAAAAAAAAAAAAAD8AAAA1AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-03-02T20:26:07.251Z"
+              "WhenOpened": "2024-03-02T20:26:07.251Z",
+              "EditorCaption": ""
             }
           ]
         }

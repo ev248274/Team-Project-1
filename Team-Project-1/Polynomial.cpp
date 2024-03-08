@@ -4,6 +4,19 @@
 #include <iostream>
 #include <sstream>
 
+// Helper functions
+/*
+Makes a polynomial from a given string and returns it as a list of Terms
+@param poly: The string to become a polynomail
+@return: The Term list that represents the Polynomial
+*/
+list<Polynomial::Term> gen_polynomial_as_list_from_string(std::string poly) {
+	Polynomial helpful_poly;
+	helpful_poly.set_polynomial_from_string(poly);
+
+	return helpful_poly.term_list;
+}
+
 // Constructors
 
 // Default Constructor (Term)
@@ -14,6 +27,9 @@ Polynomial::Term::Term(int coefficent, int exponent) : coefficent(coefficent), e
 
 // Default Constructor (Polynomial)
 Polynomial::Polynomial() : term_list(NULL) {}
+
+// Constructor with given Polynomial (Polynomial)
+Polynomial::Polynomial(std::string poly) : term_list(gen_polynomial_as_list_from_string(poly)) {}
 
 // Class-member functions
 
