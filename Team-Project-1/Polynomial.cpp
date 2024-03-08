@@ -38,7 +38,6 @@ Polynomial::Polynomial(const Polynomial& other) {
 // Constructor with given Polynomial (Polynomial)
 Polynomial::Polynomial(std::string poly) : term_list(gen_polynomial_as_list_from_string(poly)) {
 	combine();
-	sort();
 }
 
 
@@ -58,7 +57,67 @@ void Polynomial::clear() {
 Combines all coefficients of like exponents inside of term_list
 */
 void Polynomial::combine() {
-	// ***FIXME***
+	if (term_list.size() < 2) { throw std::exception("Trying to simplify a Polynomial with one or fewer terms"); }
+	
+	sort();
+	
+	Polynomial combined_poly;
+	Term combined_left_term;
+	bool combined_left_term_exists = false;
+
+	auto it_left = term_list.begin();
+	auto it_right = ++term_list.begin();
+
+	while (it_right != term_list.end()) {
+		// We should add them
+		if (it_left->get_exponent() == it_right->get_exponent()) {
+			// We still have the same Term, keep adding to the temp value
+			if (combined_left_term_exists) {
+				combined_left_term = combined_left_term + *it_right;
+
+			}
+			else {
+				combined_left_term = *it_left + *it_right;
+
+				combined_left_term_exists = true;
+
+			}
+		}
+		// If their exponents are not equal
+		else {
+			if (combined_left_term_exists) {
+				combined_poly.term_list.push_back(combined_left_term);
+
+				combined_left_term_exists = false; // Stop combining /slash/ Stop pushing the finished Term
+			}
+			else {
+				combined_poly.term_list.push_back(*it_left);
+			}
+		}
+
+		++it_left;
+		++it_right;
+	}
+
+	/* 
+	After we reach the end, we either combined the last term with the second-to-last,
+	or we already pushed the second-to-last term but exited the loop without adding the last term.
+
+	So, either add the combined term to the list or the last term to the list.
+	Depending on if the combined number exists.
+
+	Note: The last term in the list would be where the left iterator ends, since the right iterator has to go
+	one past the end to exit the loop
+	*/
+	if (combined_left_term_exists) {
+		combined_poly.term_list.push_back(combined_left_term);
+	}
+	else {
+		combined_poly.term_list.push_back(*it_left);
+	}
+
+	// Update our Polynomial
+	*this = combined_poly;
 }
 
 /*
