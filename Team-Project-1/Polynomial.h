@@ -29,11 +29,12 @@ private:
 		void set_exponent(const int);
 
 		// Overloaded operators
-		bool operator == (const Term&) const; // Tests whether two Terms have equal exponents
-		bool operator != (const Term&) const; // Tests whether two Terms do not have equal exponents
-		bool operator > (const Term&) const;  // Tests whether one Term is greater than the other
-		bool operator < (const Term&) const;  // Tests whether one Term is less than the other
-		Term operator + (const Term&) const;  // Adds two Terms with equal exponents
+		bool operator == (const Term&) const;     // Tests whether two Terms have equal exponents
+		bool operator != (const Term&) const;     // Tests whether two Terms do not have equal exponents
+		bool operator > (const Term&) const;      // Tests whether one Term is greater than the other
+		bool operator < (const Term&) const;      // Tests whether one Term is less than the other
+		Term operator + (const Term&) const;      // Adds two Terms with equal exponents
+		const Term& operator = (const Term& rhs); // Deep-copy assignment operator
 
 	private:
 		// Data Fields

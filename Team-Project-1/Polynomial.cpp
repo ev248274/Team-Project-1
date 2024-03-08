@@ -29,7 +29,10 @@ Polynomial::Term::Term(int coefficent, int exponent) : coefficent(coefficent), e
 Polynomial::Polynomial() : term_list(NULL) {}
 
 // Constructor with given Polynomial (Polynomial)
-Polynomial::Polynomial(std::string poly) : term_list(gen_polynomial_as_list_from_string(poly)) {}
+Polynomial::Polynomial(std::string poly) : term_list(gen_polynomial_as_list_from_string(poly)) {
+	combine();
+	sort();
+}
 
 // Class-member functions
 
@@ -318,6 +321,23 @@ bool Polynomial::Term::operator < (const Term& other) const {
 	return exponent < other.exponent ? true : false;
 
 }
+
+/*
+Deep-copy assignment operator (Term)
+*/
+const Polynomial::Term& Polynomial::Term::operator = (const Term& rhs) {
+	// Avoid self assignment
+	if (this != &rhs) {
+		// No dynamic data to copy
+		// Copy static data
+		coefficent = rhs.coefficent;
+		exponent   = rhs.exponent;
+		// No dynamic data to copy
+	}
+
+	return *this;
+}
+
 /*
 Adds two Terms with equal exponents
 @param other: the other Term
@@ -331,24 +351,56 @@ Polynomial::Term Polynomial::Term::operator + (const Term& other) const {
 	return result;
 }
 
-
 /*
 Overloads the + operator for the Polynomial class : Adds two Polynomials together
-@param other: other Polynomials' address
-@return: Polynomial with instantiated list<Term>
+@param other: The other Polynomial
+@return: A Polynomial that is the result of adding the two Polynomials together
 */
 Polynomial Polynomial::operator + (const Polynomial& other) const {
-	Polynomial result;
+	Polynomial result; // The Polynomial after the addition
 
-	for (auto it = term_list.begin(); it != term_list.end(); ++it) { result.term_list.push_back(*it); }
+	auto it_right = other.term_list.begin(); // iterator for the right Polynomial
+	auto it_left  = term_list.begin();       // iterator for left Polynomial
 
-	for (auto it = other.term_list.begin(); it != other.term_list.end(); ++it) { result.term_list.push_back(*it); }
+	// Go through as much of the left Polynomial's Terms as possible
+	while (it_left != term_list.end()) {
+		// There are no more values in the right Polynomial to compare to
+		if (it_right == other.term_list.end()) { break; }
 
-	result.sort();
-	result.combine();
+		// Both Term's exponents are equal
+		if (it_left->get_exponent() == it_right->get_exponent()) {
+			result.term_list.push_back(*it_left + *it_right);
 
-	std::cout << "Added two polynomials!\nResult is: " << std::endl;
-	result.output_term_list();
+			++it_right;
+			++it_left;
+		}
+		// Left side's exponent is greater
+		else if (it_left->get_exponent() > it_right->get_exponent()) {
+			result.term_list.push_back(*it_left);
+
+			++it_left;
+		}
+		// Right side's exponent is greater
+		else {
+			result.term_list.push_back(*it_right);
+
+			++it_right;
+		}
+	}
+
+	// We have some extra Terms in left Polynomial
+	while (it_left != term_list.end()) {
+		result.term_list.push_back(*it_left);
+
+		++it_left;
+	}
+
+	// We have some extra Terms in the right Polynomial
+	while (it_right != other.term_list.end()) {
+		result.term_list.push_back(*it_right);
+
+		++it_right;
+	}
 
 	return result;
 }
