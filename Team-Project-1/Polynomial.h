@@ -56,7 +56,6 @@ public:
 
 	// Class-member functions.
 	void set_polynomial_from_string(std::string poly); // Initializes term_list with a string in polynomial format
-	void set_polynomial_list(list<Term> lst); // Initializes term_list with another list<Term> variable (incomplete)
 	list<Term> get_polynomial(); // Returns term_list
 	void output_term_list(); // Shows each Term inside term_list
 	void swap(std::list<Term>::iterator, std::list<Term>::iterator); // Swaps two adjacent Terms in the Polynomial
@@ -70,6 +69,7 @@ public:
 
 	// Helper functions
 	friend list<Term> gen_polynomial_as_list_from_string(std::string);
+	friend std::ostream& operator << (std::ostream&, Polynomial&);
 }; 
 
 

@@ -6,26 +6,27 @@
 using namespace std;
 
 int main() {
+	
 	Polynomial first;
 	Polynomial second;
 	Polynomial third;
 
-	string first_p = "-x+5+x^2-10";
-	string second_p = "5x-5x^-2+10-5x+x^2-0x";
+	string first_p;
+	string second_p;
+
+	cout << "Enter first polynomial: " << endl;
+	cin >> first_p; // x+5+x^2-10
+	cout << "Enter second polynomial: " << endl;
+	cin >> second_p; // 5x-5x^-2+10-5x+x^2-0x
 
 	first.set_polynomial_from_string(first_p);
 	second.set_polynomial_from_string(second_p);
-	
-	//first.output_term_list();
-	second.output_term_list();
 
-	//third = first + second;
+	third = first + second;
+	third.sort();
+	third.combine();
 
-	second.sort();
-
-	cout << "After sort: \n" << endl;
-
-	second.output_term_list();
+	cout << "\nFirst and second polynomials added together:\n-----------------------\n" << third << endl;
 	
 	system("pause");
 	return 0;

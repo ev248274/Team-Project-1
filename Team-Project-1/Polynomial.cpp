@@ -499,3 +499,29 @@ Polynomial Polynomial::operator + (const Polynomial& other) const {
 
 	return result;
 }
+
+/*
+Overloads the Ostream operator for Polynomials
+@param out, poly: out is a reference to a ostream object, poly is a reference to a Polynomial object
+@return out: returns an ostream object
+*/
+std::ostream& operator << (std::ostream& out, Polynomial& poly) {
+	for (auto it = poly.term_list.begin(); it != poly.term_list.end(); ++it) {
+		// positive coefficients that aren't the beginning 
+		if ((*it).get_coefficent() > 0 && it != poly.term_list.begin()) {
+			out << "+";
+		}
+		// coefficient of 0, so don't output x
+		if ((*it).get_coefficent() == 0) {
+			continue;
+		}
+		// exponent is 0, so don't output "x^0": just output the value of the coefficient
+		else if ((*it).get_exponent() == 0) {
+			out << (*it).get_coefficent();
+			continue;
+		}
+		// output the coefficient and exponent of x
+		out << (*it).get_coefficent() << "x^" << (*it).get_exponent();
+	}
+	return out;
+}
