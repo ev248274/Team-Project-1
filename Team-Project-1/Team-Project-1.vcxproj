@@ -133,6 +133,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Polynomial.cpp" />
     <ClCompile Include="test_case_1.cpp" />
+    <ClCompile Include="test_case_2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
