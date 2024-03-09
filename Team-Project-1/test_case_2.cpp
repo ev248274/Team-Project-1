@@ -4,6 +4,7 @@
 
 /*
 
+<<<<<<< Updated upstream
 This test case is going to test the overloaded '+' operator.
 
 for the first polynomial, we expect an output of:
@@ -38,6 +39,39 @@ The "-x^7" is now "-1x^7", but those are the same thing, so nothing to worry abo
 
 As with the previous term, this isn't that big of a deal as they are both the same thing.
 
+=======
+This test case is going to test the Polynomial class's .combine() function.
+
+The .combine() function requires that the Polynomial's Terms are sorted from highest to lowest exponent.
+
+Given a sorted (often by using .sort()) Polynomial, the .combine() function will augment the Term list of the
+Polynomial to be in reduced form. 
+Meaning if there are multiple Terms with the exponent 2, it will combine them all into a single Term that is mathmatically equivalent.
+
+Ex. 2x^2+x^2 = 3x^2
+
+We are testing if the input:
+
+x^3+x^3+x^3+x^2+x^1-2x^1
+
+Will become:
+
+3x^3+x^2-x^1
+
+----------------------
+       Result
+----------------------
+
+The input:
+
+x^3+x^3+x^3+x^2+x^1-2x^1
+
+Has become:
+
+3x^3+x^2-x^1
+
+Great! Our predictions were correct!
+>>>>>>> Stashed changes
 
 */
 
@@ -45,6 +79,7 @@ using namespace std;
 
 void test_case_2() {
 	Polynomial test_poly;
+<<<<<<< Updated upstream
 	Polynomial test_poly_2;
 	Polynomial result;
 
@@ -64,4 +99,17 @@ void test_case_2() {
 	result.sort();
 	result.combine();
 	cout << "Printing result: " << result << endl;
+=======
+	string s_1 = "x^3+x^3+x^3+x^2+x^1-2x^1";
+
+	// Testing string 1 (s_1)
+	test_poly.set_polynomial_from_string(s_1);
+
+	cout << "test_poly's term_list before the combine:" << endl << endl;
+
+	test_poly.combine();
+
+	cout << "test_poly's term_list after the combine:" << endl;
+	cout << test_poly << endl << endl;
+>>>>>>> Stashed changes
 }
