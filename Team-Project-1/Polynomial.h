@@ -47,7 +47,6 @@ private:
 public:
 	// Constructors
 	Polynomial();
-	// Copy Constructor
 	Polynomial(const Polynomial&); // Copy constructor
 	Polynomial(std::string); // Constructs a Polynomial with a given string
 

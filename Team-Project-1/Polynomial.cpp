@@ -57,11 +57,9 @@ void Polynomial::clear() {
 Combines all coefficients of like exponents inside of term_list
 */
 void Polynomial::combine() {
-	if (term_list.size() < 2) { throw std::exception("Trying to simplify a Polynomial with one or fewer terms"); }
+	if (term_list.size() < 2) { return; } // If we have 0 or just 1 Term, we don't have anything to combine
 	
-	sort();
-	
-	Polynomial combined_poly;
+	std::list<Term> combined_terms;
 	Term combined_left_term;
 	bool combined_left_term_exists = false;
 
@@ -86,12 +84,12 @@ void Polynomial::combine() {
 		// If their exponents are not equal
 		else {
 			if (combined_left_term_exists) {
-				combined_poly.term_list.push_back(combined_left_term);
+				combined_terms.push_back(combined_left_term);
 
 				combined_left_term_exists = false; // Stop combining /slash/ Stop pushing the finished Term
 			}
 			else {
-				combined_poly.term_list.push_back(*it_left);
+				combined_terms.push_back(*it_left);
 			}
 		}
 
@@ -110,14 +108,14 @@ void Polynomial::combine() {
 	one past the end to exit the loop
 	*/
 	if (combined_left_term_exists) {
-		combined_poly.term_list.push_back(combined_left_term);
+		combined_terms.push_back(combined_left_term);
 	}
 	else {
-		combined_poly.term_list.push_back(*it_left);
+		combined_terms.push_back(*it_left);
 	}
 
 	// Update our Polynomial
-	*this = combined_poly;
+	this->term_list = combined_terms;
 }
 
 /*
@@ -346,7 +344,8 @@ void Polynomial::set_polynomial_from_string(std::string poly) {
 		//current_num_int = std::stoi(current_num_str); // Convert string to an integer
 
 		if (write_to_exponent) {
-			current_term.set_exponent(current_num_int);
+			if (make_this_num_negative) { current_term.set_exponent(-current_num_int); } // Negative
+			else                        { current_term.set_exponent(current_num_int); }  // Positive
 		}
 		else if (prev_char_was_x){
 			current_term.set_coefficent(current_num_int);
@@ -354,10 +353,18 @@ void Polynomial::set_polynomial_from_string(std::string poly) {
 		}
 		// Constant value at the end
 		else {
-			current_term.set_coefficent(current_num_int);
-			current_term.set_exponent(0);
+			if (make_this_num_negative) {
+				current_term.set_coefficent(-current_num_int); // Negative
+				current_term.set_exponent(0);
+			}
+			else {
+				current_term.set_coefficent(current_num_int); // Positive
+				current_term.set_exponent(0);
+			}
 
 		}
+
+		// Add the final Term
 		term_list.push_back(current_term);
 	}
 }
